@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>json_typegen</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-switch">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.css">
   <style>
     html {
@@ -134,6 +135,12 @@
               </div>
               <div class="level-right">
                 <div class="level-item">
+                  <button class="button is-small is-white mr-2" id="format-json-button">
+                    <span class="icon is-small">
+                      <i class="fas fa-code"></i>
+                    </span>
+                    <span>Format JSON</span>
+                  </button>
                   <div class="file is-small is-white">
                     <label class="file-label">
                       <input class="file-input" type="file" name="loadfile" id="loadfile" accept="application/json">
@@ -195,14 +202,50 @@
           </div>
 
           <div class="field">
-            <label class="label" for="unwrap">Unwrap path (JSON pointer, - is wildcard)</label>
+            <div class="level">
+              <div class="level-left">
+                <div class="level-item">
+                  <label class="label" for="unwrap">Unwrap path (JSON pointer, - is wildcard)</label>
+                </div>
+              </div>
+              <div class="level-right">
+                <div class="level-item">
+                  <label class="checkbox mr-1">
+                    <span class="button is-small is-white">
+                        <input type="checkbox" class="mr-1" id="create-wrapper-checkbox">
+                        Output wrapper*
+                    </span>
+                  </label>
+                  <button class="button is-small is-info is-light" id="unwrap-help-button">
+                    <span class="icon">
+                      <i class="fas fa-question"></i>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
             <p class="control">
               <input class="input" type="text" value="" id="unwrap" placeholder="/foo/-/bar">
             </p>
           </div>
 
           <div class="field">
-            <label class="label" for="extraoptions">Extra options / inference hints (JSON)</label>
+            <div class="level">
+              <div class="level-left">
+                <div class="level-item">
+                  <label class="label" for="extraoptions">Extra options / inference hints (JSON)</label>
+                </div>
+              </div>
+              <div class="level-right">
+                <div class="level-item">
+                  <button class="button is-small is-info is-light" id="hints-help-button">
+                    <span class="icon">
+                      <i class="fas fa-question"></i>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
             <textarea class="textarea" placeholder="" id="extraoptions" rows="6"></textarea>
           </div>
 

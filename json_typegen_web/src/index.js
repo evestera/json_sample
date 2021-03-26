@@ -17,6 +17,7 @@ const render = () => {
     property_name_format: $('propertynameformat').value,
     unwrap: $('unwrap').value,
   });
+  const outputWrapper = $('create-wrapper-checkbox').checked;
 
   const extraoptions_elem = $('extraoptions');
   const extraoptions_json = extraoptions_elem.value;
@@ -35,11 +36,16 @@ const render = () => {
     extraoptions: extraoptions ? extraoptions_json : undefined
   })
 
-  const combinedOptions = Object.assign({}, options, extraoptions || {});
+  const combinedOptions = Object.assign(
+    {},
+    options,
+    extraoptions || {},
+    (outputWrapper ? { unwrap: "", [options.unwrap]: {use_type: "T"}} : {})
+  );
 
   const message = {
     type: WorkerMessage.CODEGEN,
-    typename,
+    typename: (outputWrapper ? "Wrapper" : typename),
     input: input || "{}",
     options: combinedOptions,
   };
@@ -88,6 +94,7 @@ $('outputmode').onchange = render;
 $('propertynameformat').onchange = render;
 $('unwrap').onkeyup = render;
 $('extraoptions').onkeyup = render;
+$('create-wrapper-checkbox').onchange = render;
 
 $('loadfile').onchange = (event) => {
   const file = event.target.files[0];
@@ -122,6 +129,17 @@ $('clear-input-button').onclick = () => {
   });
   $('large-file-overlay').classList.add('is-invisible');
   $('input').value = "";
+  render();
+}
+
+$('format-json-button').onclick = () => {
+  try {
+    const input = $('input');
+    input.value = JSON.stringify(JSON.parse(input.value), undefined, 2)
+  } catch (e) {
+    alert("Unable to parse input as JSON");
+    return;
+  }
   render();
 }
 
